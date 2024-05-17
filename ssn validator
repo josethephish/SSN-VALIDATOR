@@ -1,0 +1,51 @@
+import re
+
+def is_valid_ssn(ssn):
+    """
+    Validate a given SSN (Social Security Number).
+
+    An SSN is considered valid if it follows the pattern XXX-XX-XXXX
+    where X is a digit, and it does not fall into certain invalid ranges.
+
+    Args:
+        ssn (str): The SSN to validate.
+
+    Returns:
+        bool: True if the SSN is valid, False otherwise.
+    """
+    # Check if the SSN matches the pattern XXX-XX-XXXX
+    if not re.match(r"^\d{3}-\d{2}-\d{4}$", ssn):
+        return False
+    
+    # Extract parts of the SSN
+    area, group, serial = ssn.split('-')
+
+    # Convert parts to integers for range checking
+    area = int(area)
+    group = int(group)
+    serial = int(serial)
+
+    # The following checks ensure the SSN does not fall into invalid ranges
+    if area == 0 or area == 666 or area >= 900:
+        return False
+    if group == 0:
+        return False
+    if serial == 0:
+        return False
+
+    return True
+
+# Example usage
+if __name__ == "__main__":
+    test_ssns = [
+        "123-45-6789",  # Valid SSN
+        "000-12-3456",  # Invalid: Area number cannot be 000
+        "666-12-3456",  # Invalid: Area number cannot be 666
+        "900-12-3456",  # Invalid: Area number cannot be 900 or above
+        "123-00-6789",  # Invalid: Group number cannot be 00
+        "123-45-0000",  # Invalid: Serial number cannot be 0000
+        "12-345-6789",  # Invalid: Incorrect format
+    ]
+
+    for ssn in test_ssns:
+        print(f"{ssn}: {is_valid_ssn(ssn)}")
