@@ -1,21 +1,63 @@
-MIT License
 
-Copyright (c) 2024 josethephish
+## 3. Test Plan
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+### Sample Test Plan (docs/test_plan.md)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+```markdown
+# SSN Validator Test Plan
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Introduction
+
+This document outlines the test plan for the SSN Validator, including test scenarios and expected outcomes.
+
+## Test Scenarios
+
+### Positive Scenarios
+
+1. **Valid SSN Format**
+    - **Description**: Validate an SSN that follows the correct format and valid ranges.
+    - **Steps**:
+        1. Input `123-45-6789`.
+    - **Expected Outcome**: The function should return `True`.
+
+### Negative Scenarios
+
+1. **Invalid Area Number**
+    - **Description**: Validate an SSN with an invalid area number (000).
+    - **Steps**:
+        1. Input `000-12-3456`.
+    - **Expected Outcome**: The function should return `False`.
+
+2. **Invalid Area Number (666)**
+    - **Description**: Validate an SSN with an invalid area number (666).
+    - **Steps**:
+        1. Input `666-12-3456`.
+    - **Expected Outcome**: The function should return `False`.
+
+3. **Invalid Area Number (900 or above)**
+    - **Description**: Validate an SSN with an area number of 900 or above.
+    - **Steps**:
+        1. Input `900-12-3456`.
+    - **Expected Outcome**: The function should return `False`.
+
+4. **Invalid Group Number**
+    - **Description**: Validate an SSN with an invalid group number (00).
+    - **Steps**:
+        1. Input `123-00-6789`.
+    - **Expected Outcome**: The function should return `False`.
+
+5. **Invalid Serial Number**
+    - **Description**: Validate an SSN with an invalid serial number (0000).
+    - **Steps**:
+        1. Input `123-45-0000`.
+    - **Expected Outcome**: The function should return `False`.
+
+6. **Incorrect Format**
+    - **Description**: Validate an SSN that does not follow the correct format.
+    - **Steps**:
+        1. Input `12-345-6789`.
+    - **Expected Outcome**: The function should return `False`.
+
+## Conclusion
+
+This test plan ensures that the SSN Validator is thoroughly tested for both valid SSNs and various invalid scenarios.
